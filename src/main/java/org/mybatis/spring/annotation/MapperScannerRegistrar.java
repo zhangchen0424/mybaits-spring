@@ -47,6 +47,9 @@ import org.springframework.util.StringUtils;
  * @author Eduardo Macarron
  * @author Putthiphong Boonphong
  *
+ * 负责将扫描到的 Mapper 接口，注册成 beanClass 为 MapperFactoryBean 的 BeanDefinition 对象，从而实现创建 Mapper 对象
+ *
+ *
  * @see MapperFactoryBean
  * @see ClassPathMapperScanner
  * @since 1.2.0
@@ -69,9 +72,11 @@ public class MapperScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
    */
   @Override
   public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+    // <1> 获得 @MapperScan 注解信息
     AnnotationAttributes mapperScanAttrs = AnnotationAttributes
         .fromMap(importingClassMetadata.getAnnotationAttributes(MapperScan.class.getName()));
     if (mapperScanAttrs != null) {
+      // <2> MapperScannerConfigurer
       registerBeanDefinitions(importingClassMetadata, mapperScanAttrs, registry,
           generateBaseBeanName(importingClassMetadata, 0));
     }

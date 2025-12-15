@@ -66,6 +66,8 @@ import org.springframework.context.annotation.Import;
  * }
  * </pre>
  *
+ * 指定需要扫描的包，将包中符合的 Mapper 接口，注册成 beanClass 为 MapperFactoryBean 的 BeanDefinition 对象，从而实现创建 Mapper 对象
+ *
  * @author Michael Lanyon
  * @author Eduardo Macarron
  *
@@ -84,6 +86,8 @@ public @interface MapperScan {
    * Alias for the {@link #basePackages()} attribute. Allows for more concise annotation declarations e.g.:
    * {@code @MapperScan("org.my.pkg")} instead of {@code @MapperScan(basePackages = "org.my.pkg"})}.
    *
+   * 和 {@link #basePackages()} 相同意思
+   *
    * @return base package names
    */
   String[] value() default {};
@@ -91,6 +95,8 @@ public @interface MapperScan {
   /**
    * Base packages to scan for MyBatis interfaces. Note that only interfaces with at least one method will be
    * registered; concrete classes will be ignored.
+   *
+   * 扫描的包地址
    *
    * @return base package names for scanning mapper interface
    */
@@ -121,6 +127,8 @@ public @interface MapperScan {
    * <p>
    * Note this can be combined with markerInterface.
    *
+   * 指定注解
+   *
    * @return the annotation that the scanner will search for
    */
   Class<? extends Annotation> annotationClass() default Annotation.class;
@@ -133,6 +141,8 @@ public @interface MapperScan {
    * <p>
    * Note this can be combined with annotationClass.
    *
+   * 指定接口
+   *
    * @return the parent that the scanner will search for
    */
   Class<?> markerInterface() default Class.class;
@@ -140,6 +150,8 @@ public @interface MapperScan {
   /**
    * Specifies which {@code SqlSessionTemplate} to use in the case that there is more than one in the spring context.
    * Usually this is only needed when you have more than one datasource.
+   *
+   * 指向的 SqlSessionTemplate 的名字
    *
    * @return the bean name of {@code SqlSessionTemplate}
    */
@@ -149,12 +161,16 @@ public @interface MapperScan {
    * Specifies which {@code SqlSessionFactory} to use in the case that there is more than one in the spring context.
    * Usually this is only needed when you have more than one datasource.
    *
+   * 指向的 SqlSessionFactory 的名字
+   *
    * @return the bean name of {@code SqlSessionFactory}
    */
   String sqlSessionFactoryRef() default "";
 
   /**
    * Specifies a custom MapperFactoryBean to return a mybatis proxy as spring bean.
+   *
+   * 可自定义 MapperFactoryBean 的实现类
    *
    * @return the class of {@code MapperFactoryBean}
    */
